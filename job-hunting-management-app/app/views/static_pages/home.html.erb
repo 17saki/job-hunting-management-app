@@ -1,0 +1,39 @@
+<div class="toolbar">
+  <!-- 並び替えボタン -->
+  <button class="sort-btn">↕</button>
+
+  <!-- 検索ボックス -->
+  <input type="text" id="search-box" class="search-box" placeholder="絞り込み">
+
+  <!-- 右上の + ボタン（company_n へ遷移） -->
+  <%= link_to "+", company_n_path, class: "add-btn" %>
+</div>
+
+<!-- 会社カード一覧 -->
+<div id="company-list" class="company-list">
+  <% @companies&.each do |company| %>
+    <div class="company-card"
+         data-name="<%= company.name %>">
+
+      <div class="card-header">
+        <span class="tag"><%= company.category %></span>
+
+        <span class="status <%= company.status_color %>">
+          <%= company.status %>
+        </span>
+      </div>
+
+      <div class="card-body">
+        <!-- クリックしたら company_path(company) へ飛ぶ -->
+        <%= link_to company_path(company), class: "company-link" do %>
+          <p><strong><%= company.name %></strong></p>
+          <p><%= company.date %></p>
+          <p><%= company.step %></p>
+          <p>志望度 <span class="priority <%= company.priority_color %>">
+            <%= company.priority %>
+          </span></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

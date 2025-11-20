@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  root "static_pages#home"
+  get "/company_n", to: "static_pages#company_n"
+  get "/company", to: "static_pages#company"
+  get "/todo", to: "static_pages#todo"
+  get "/todo_n", to: "static_pages#todo_n"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

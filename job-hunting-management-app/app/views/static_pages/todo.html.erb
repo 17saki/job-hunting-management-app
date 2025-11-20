@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Todoリスト</title>
+<style>
+  body { font-family: sans-serif; margin: 20px; }
+  .header { display: flex; align-items: center; gap: 10px; }
+  .header button, .header input { padding: 8px; border-radius: 5px; }
+  .header input { flex: 1; border: 1px solid #ccc; }
+  .todo-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  .todo-item {
+    display: flex;
+    align-items: center;
+    border: 2px solid #0077aa;
+    border-radius: 12px;
+    padding: 10px;
+    background: #fff;
+  }
+  .todo-item input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 10px;
+    accent-color: #0077aa; /* チェック時の色 */
+  }
+  .checked {
+    background-color: #e0f7fa;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <button id="sortBtn">⇅</button>
+  <input type="text" id="search" placeholder="絞り込み">
+  <%= link_to "＋", todo_n_path, class: "add-btn" %>
+</div>
+
+<div class="todo-list" id="todoList">
+  <div class="todo-item"><input type="checkbox"><span>2025/11/07 03:56 適性検査の勉強</span></div>
+  <div class="todo-item"><input type="checkbox"><span>2025/11/08 10:00 株式会社○○ 履歴書</span></div>
+  <div class="todo-item"><input type="checkbox"><span>2025/11/09 14:00 □□株式会社 適性検査</span></div>
+</div>
+
+<script>
+const sortBtn = document.getElementById('sortBtn');
+const searchInput = document.getElementById('search');
+const todoList = document.getElementById('todoList');
+
+// チェック状態でスタイル変更
+todoList.addEventListener('change', e => {
+  if (e.target.type === 'checkbox') {
+    e.target.parentElement.classList.toggle('checked', e.target.checked);
+  }
+});
+
+// 検索フィルタ
+searchInput.addEventListener('input', () => {
+  const keyword = searchInput.value.toLowerCase();
+  document.querySelectorAll('.todo-item').forEach(item => {
+    const text = item.textContent.toLowerCase();
+    item.style.display = text.includes(keyword) ? '' : 'none';
+  });
+});
+
+// 並び替え（日付順）
+let ascending = true;
+sortBtn.addEventListener('click', () => {
+  const items = Array.from(document.querySelectorAll('.todo-item'));
+  items.sort((a, b) => {
+    const dateA = new Date(a.textContent.split(' ')[0]);
+    const dateB = new Date(b.textContent.split(' ')[0]);
+    return ascending ? dateA - dateB : dateB - dateA;
+  });
+  ascending = !ascending;
+  items.forEach(item => todoList.appendChild(item));
+});
+</script>
+
+</body>
+</html>
