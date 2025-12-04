@@ -1,10 +1,8 @@
 class StaticPagesController < ApplicationController
   def home
+    @companies = Company.all
   end
-
-  def company_n
-  end
-
+  
   def company
   end
 

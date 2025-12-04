@@ -1,0 +1,56 @@
+<div class="form-container">
+  <h2>新規作成</h2>
+  <%= form_with model: @company do |f| %>
+    <div class="form-group">
+      <label>企業名</label>
+      <%= f.text_field :name, placeholder: "編集" %>
+    </div>
+
+    <div class="form-group">
+      <label>志望度</label>
+      <%= f.select :interest, [["高","high"],["中","medium"],["低","low"]] %>
+    </div>
+
+    <div class="form-group">
+      <label>インターンor選考</label>
+      <%= f.select :choice, [["インターン","intern"],["早期選考","early"],["本選考","main"]] %>
+    </div>
+
+    <div class="form-group">
+      <label>選考状況</label>
+      <%= f.select :situation, [["選考中","ongoing"],["結果待ち","waiting"],["内々定","informal_offer"],["内定","offer"],["選考終了","finished"],["合格","pass"],["不合格","fail"]] %>
+    </div>
+
+    <div class="form-group">
+      <label>予定</label>
+      <%= f.text_field :schedule, placeholder: "編集" %>
+    </div>
+
+    <div class="form-group">
+      <label>日付</label>
+      <%= f.date_field :date_c, multiple: true %>
+    </div>
+
+    <div class="form-group">
+      <label>開始時間</label>
+      <%= f.time_field :starttime_c %>
+    </div>
+
+    <div class="form-group">
+      <label>終了時間</label>
+      <%= f.time_field :end_time_c %>
+    </div>
+
+    <div class="form-group">
+      <label>詳細</label>
+      <%= f.text_area :detail, placeholder: "編集" %>
+    </div>
+
+    <div class="form-group">
+      <label>メモ</label>
+      <%= f.text_area :memo_c, placeholder: "編集" %>
+    </div>
+
+    <%= f.submit "保存", class: "save-btn" %>
+  <% end %>
+</div>

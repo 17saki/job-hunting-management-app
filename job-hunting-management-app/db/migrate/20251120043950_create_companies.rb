@@ -7,7 +7,8 @@ class CreateCompanies < ActiveRecord::Migration[8.0]
       t.string :situation
       t.string :schedule
       t.string :date_c
-      t.string :time_c
+      t.string :starttime_c
+      t.string :endtime_c
       t.string :detail
       t.string :memo_c
 

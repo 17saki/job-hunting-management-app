@@ -1,39 +1,32 @@
 <div class="toolbar">
   <!-- 並び替えボタン -->
-  <button class="sort-btn">↕</button>
+  <button id="sort-btn" class="icon-btn">⇅</button>
 
-  <!-- 検索ボックス -->
-  <input type="text" id="search-box" class="search-box" placeholder="絞り込み">
+  <!-- 検索フォーム -->
+  <input type="text" id="search-input" placeholder="絞り込み">
+  <button id="search-btn">検索</button>
 
-  <!-- 右上の + ボタン（company_n へ遷移） -->
-  <%= link_to "+", company_n_path, class: "add-btn" %>
+  <!-- 追加ボタン -->
+  <%= link_to "+", new_company_path, class: "icon-btn" %>
 </div>
 
-<!-- 会社カード一覧 -->
-<div id="company-list" class="company-list">
-  <% @companies&.each do |company| %>
-    <div class="company-card"
-         data-name="<%= company.name %>">
-
-      <div class="card-header">
-        <span class="tag"><%= company.category %></span>
-
-        <span class="status <%= company.status_color %>">
-          <%= company.status %>
-        </span>
+<div class="company-list">
+  <% if @companies.present? %>
+    <% @companies.each do |company| %>
+      <div class="company-card">
+        <div class="status">
+          <span class="type"><%= company.selection_type %></span>
+          <span class="state <%= company.state_class %>"><%= company.state %></span>
+        </div>
+        <div class="details">
+          <%= link_to company.name, company_path(company), class: "company-link" %>
+          <p><%= company.date_c %> <%= company.time_range %></p>
+          <p><%= company.schedule %></p>
+          <p class="priority">志望度 <%= company.interest %></p>
+        </div>
       </div>
-
-      <div class="card-body">
-        <!-- クリックしたら company_path(company) へ飛ぶ -->
-        <%= link_to company_path(company), class: "company-link" do %>
-          <p><strong><%= company.name %></strong></p>
-          <p><%= company.date %></p>
-          <p><%= company.step %></p>
-          <p>志望度 <span class="priority <%= company.priority_color %>">
-            <%= company.priority %>
-          </span></p>
-        <% end %>
-      </div>
-    </div>
+    <% end %>
+  <% else %>
+    <p>会社情報がありません</p>
   <% end %>
 </div>

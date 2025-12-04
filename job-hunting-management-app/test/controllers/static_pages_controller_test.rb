@@ -5,7 +5,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     get root_path
     assert_template 'static_pages/home'
     assert_select "a[href=?]", root_path, count: 1
-    assert_select "a[href=?]", company_n_path
+    assert_select "a[href=?]", new_company_path
     assert_select "a[href=?]", company_path
     assert_select "a[href=?]", todo_path
     assert_select "a[href=?]", todo_n_path

@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "static_pages#home"
-  get "/company_n", to: "static_pages#company_n"
-  get "/company", to: "static_pages#company"
+  resources :companies, only: [:index, :show, :new, :create]
+  #get "/company", to: "static_pages#company"
   get "/todo", to: "static_pages#todo"
   get "/todo_n", to: "static_pages#todo_n"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
